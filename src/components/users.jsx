@@ -30,6 +30,7 @@ const Users = () => {
   const handleDelete = (userId) => {
     setUsers((prevState) => prevState.filter((el) => el !== userId));
   };
+  
   const renderPhrase = (number) => {
     return (
       <table className="table mt-5">
