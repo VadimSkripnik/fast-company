@@ -1,20 +1,11 @@
 import React from "react";
 
-const Bookmark = (props) => {
-  return (
-    <div>
-      <span
-        className="btn btn-outline-dark"
-        onClick={() => props.onChangeBookmark(props.uniqueId)}
-      >
-        <i
-          className={
-            "bi " + (!props.toggleBookmark ? "bi-bookmark" : "bi-bookmark-fill")
-          }
-        ></i>
-      </span>
-    </div>
-  );
+const BookMark = ({ status, ...rest }) => {
+    return (
+        <button {...rest}>
+            <i className={"bi bi-bookmark" + (status ? "-heart-fill" : "")}></i>
+        </button>
+    );
 };
 
-export default Bookmark;
+export default BookMark;
