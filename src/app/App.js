@@ -12,7 +12,6 @@ function App() {
         setUsers(
             users.map((user) => {
                 if (user._id === id) {
-                    // console.log({bookmark: !user.bookmark })
                     return { ...user, bookmark: !user.bookmark };
                 }
                 return user;
