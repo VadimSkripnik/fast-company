@@ -12,31 +12,10 @@ const Users = ({ users: allUsers, ...rest }) => {
     const [professions, setProfession] = useState();
     const [selectedProf, setSelectedProf] = useState();
 
-    const arrayToObject = (elem) => {
-        const arr = [
-            "doctor",
-            "waiter",
-            "physics",
-            "engineer",
-            "actor",
-            "cook"
-        ];
-        const obj = {};
-        elem.forEach((el, i) => (obj[arr[i]] = el));
-        return obj;
-    };
-
     const pageSize = 2;
-
     useEffect(() => {
-        api.professions
-            .fetchAll()
-            .then((data) =>
-                Array.isArray(data)
-                    ? setProfession(arrayToObject(data))
-                    : setProfession(data)
-            );
-    }, []);
+        api.professions.fetchAll().then((data) => setProfession(data));
+    });
 
     useEffect(() => {
         setCurrentPage(1);

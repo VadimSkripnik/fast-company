@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
 const GroupList = ({
@@ -9,19 +9,39 @@ const GroupList = ({
     onItemSelect,
     selectedItem
 }) => {
+    const [professionItems, setProfessionItems] = useState(items);
+
+    const arrayToObject = (elem) => {
+        const arr = [
+            "doctor",
+            "waiter",
+            "physics",
+            "engineer",
+            "actor",
+            "cook"
+        ];
+        const obj = {};
+        elem.forEach((el, i) => (obj[arr[i]] = el));
+        return obj;
+    };
+
+    useEffect(() => {
+        Array.isArray(professionItems) ? setProfessionItems(arrayToObject(professionItems)) : setProfessionItems(professionItems);
+    }, [professionItems]);
+
     return (
         <ul className="list-group">
-            {Object.keys(items).map((item) => (
+            {Object.keys(professionItems).map((item) => (
                 <li
-                    key={items[item][valueProperty]}
+                    key={professionItems[item][valueProperty]}
                     className={
                         "list-group-item" +
-                        (items[item] === selectedItem ? " active" : "")
+                        (professionItems[item] === selectedItem ? " active" : "")
                     }
-                    onClick={() => onItemSelect(items[item])}
+                    onClick={() => onItemSelect(professionItems[item])}
                     role="button"
                 >
-                    {items[item][contentProperty]}
+                    {professionItems[item][contentProperty]}
                 </li>
             ))}
         </ul>
