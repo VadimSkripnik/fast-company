@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
+
 import BookMark from "./bookmark";
 import QualitiesList from "./qualitiesList";
 import Table from "./table";
 
-const UsersTable = ({
+const UserTable = ({
     users,
     onSort,
     selectedSort,
@@ -13,38 +14,17 @@ const UsersTable = ({
     ...rest
 }) => {
     const columns = {
-        name: {
-            path: "name",
-            name: "Имя",
-            componentIcon: <i
-                className= {selectedSort.icon}
-            ></i>
-        },
+        name: { path: "name", name: "Имя" },
         qualities: {
             name: "Качества",
             component: (user) => <QualitiesList qualities={user.qualities} />
         },
-        professions: {
-            path: "profession.name",
-            name: "Провфессия",
-            componentIcon: <i
-                className={selectedSort.icon}
-            ></i>
-        },
+        professions: { path: "profession.name", name: "Профессия" },
         completedMeetings: {
             path: "completedMeetings",
-            name: "Встретился, раз",
-            componentIcon: <i
-                className={selectedSort.icon}
-            ></i>
+            name: "Встретился, раз"
         },
-        rate: {
-            path: "rate",
-            name: "Оценка",
-            componentIcon: <i
-                className={selectedSort.icon}
-            ></i>
-        },
+        rate: { path: "rate", name: "Оценка" },
         bookmark: {
             path: "bookmark",
             name: "Избранное",
@@ -53,10 +33,7 @@ const UsersTable = ({
                     status={user.bookmark}
                     onClick={() => onToggleBookMark(user._id)}
                 />
-            ),
-            componentIcon: <i
-                className={selectedSort.icon}
-            ></i>
+            )
         },
         delete: {
             component: (user) => (
@@ -70,10 +47,16 @@ const UsersTable = ({
         }
     };
     return (
-        <Table onSort={onSort} selectedSort={selectedSort} columns={columns} data={users} />
+        <Table
+            onSort={onSort}
+            selectedSort={selectedSort}
+            columns={columns}
+            data={users}
+        />
     );
 };
-UsersTable.propTypes = {
+
+UserTable.propTypes = {
     users: PropTypes.array.isRequired,
     onSort: PropTypes.func.isRequired,
     selectedSort: PropTypes.object.isRequired,
@@ -81,4 +64,4 @@ UsersTable.propTypes = {
     onDelete: PropTypes.func.isRequired
 };
 
-export default UsersTable;
+export default UserTable;
