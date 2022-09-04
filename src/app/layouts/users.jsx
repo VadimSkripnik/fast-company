@@ -1,26 +1,35 @@
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import api from "../api";
-import User from "../components/user";
-import UsersList from "../components/usersList";
+/* eslint-disable react/prop-types */
+// import React from "react";
+// import { useParams } from "react-router-dom";
+// import UserPage from "../components/page/userPage";
+// import UsersListPage from "../components/page/usersListPage";
+// const Users = () => {
+//     const params = useParams();
+//     const { userId } = params;
+//     return <>{userId ? <UserPage userId={userId} /> : <UsersListPage />}</>;
+// };
 
-const Users = ({ match, history }) => {
-    const userId = match.params.userId;
-    const [userPage, setUserPage] = useState();
-    useEffect(() => {
-        api.users
-            .getById(userId)
-            .then((data) => setUserPage(data));
-    }, [userId]);
+// export default Users;
+
+import React from "react";
+import { useParams } from "react-router-dom";
+import UserPage from "../components/page/userPage";
+import EditUserPage from "../components/page/editUserPage";
+import UsersListPage from "../components/page/usersListPage";
+const Users = () => {
+    const params = useParams();
+    const { userId, edit } = params;
     return (
         <>
-            {userId ? <User userPage={userPage} id={userId} history={history} /> : <UsersList /> }
+            {userId ? (
+                <>
+                    {edit ? <EditUserPage userId={userId}/> : <UserPage userId={userId} />}
+                </>
+            ) : (
+                <UsersListPage />
+            )}
         </>
     );
-};
-Users.propTypes = {
-    history: PropTypes.object.isRequired,
-    match: PropTypes.object.isRequired
 };
 
 export default Users;
