@@ -59,7 +59,6 @@ const AddCommentForm = ({ onSubmit }) => {
             label: users[userId].name,
             value: users[userId]._id
         }));
-    console.log(arrayOfUsers);
 
     return (
         <div>
