@@ -54,6 +54,10 @@ const AddCommentForm = ({ onSubmit }) => {
             label: users[userId].name,
             value: users[userId]._id
         }));
+<<<<<<< HEAD
+=======
+
+>>>>>>> 233456dc33595773895a3664489561878ec706ae
     return (
         <div>
             <h2>New comment</h2>
