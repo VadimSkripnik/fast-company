@@ -1,23 +1,21 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { validator } from "../../../utils/validator";
 import API from "../../../api";
 import SelectField from "../form/selectField";
 import TextAreaField from "../form/textAreaField";
+import { validator } from "../../../utils/validator";
+import PropTypes from "prop-types";
 const initialData = { userId: "", content: "" };
 
 const AddCommentForm = ({ onSubmit }) => {
     const [data, setData] = useState(initialData);
     const [users, setUsers] = useState({});
     const [errors, setErrors] = useState({});
-
     const handleChange = (target) => {
         setData((prevState) => ({
             ...prevState,
             [target.name]: target.value
         }));
     };
-
     const validatorConfig = {
         userId: {
             isRequired: {
@@ -30,6 +28,7 @@ const AddCommentForm = ({ onSubmit }) => {
             }
         }
     };
+
     const validate = () => {
         const errors = validator(data, validatorConfig);
         setErrors(errors);
@@ -38,39 +37,33 @@ const AddCommentForm = ({ onSubmit }) => {
     useEffect(() => {
         API.users.fetchAll().then(setUsers);
     }, []);
-
     const clearForm = () => {
         setData(initialData);
         setErrors({});
     };
-
     const handleSubmit = (e) => {
         e.preventDefault();
         const isValid = validate();
         if (!isValid) return;
-
         onSubmit(data);
         clearForm();
     };
-
     const arrayOfUsers =
         users &&
         Object.keys(users).map((userId) => ({
             label: users[userId].name,
             value: users[userId]._id
         }));
-    console.log(arrayOfUsers);
-
     return (
         <div>
-            <h2>New content</h2>
+            <h2>New comment</h2>
             <form onSubmit={handleSubmit}>
                 <SelectField
+                    onChange={handleChange}
                     options={arrayOfUsers}
                     name="userId"
-                    onChange={handleChange}
                     value={data.userId}
-                    defaultOption="Выбери пользователя"
+                    defaultOption="Выберите пользователя"
                     error={errors.userId}
                 />
                 <TextAreaField
@@ -81,13 +74,12 @@ const AddCommentForm = ({ onSubmit }) => {
                     error={errors.content}
                 />
                 <div className="d-flex justify-content-end">
-                    <button className="btn btn-primary">Submit</button>
+                    <button className="btn btn-primary">Опубликовать</button>
                 </div>
             </form>
         </div>
     );
 };
-
 AddCommentForm.propTypes = {
     onSubmit: PropTypes.func
 };

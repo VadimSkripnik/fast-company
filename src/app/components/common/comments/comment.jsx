@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { displayDate } from "../../../utils/displayDate";
 import API from "../../../api";
-
 const Comment = ({
     content,
     created_at: created,
@@ -21,13 +20,13 @@ const Comment = ({
     }, []);
 
     return (
-        <div className="bg-light card-body mb-3">
+        <div className="bg-light card-body  mb-3">
             <div className="row">
                 {isLoading ? (
                     "Loading ..."
                 ) : (
                     <div className="col">
-                        <div className="d-flex flex-start">
+                        <div className="d-flex flex-start ">
                             <img
                                 src={`https://avatars.dicebear.com/api/avataaars/${(
                                     Math.random() + 1
@@ -42,8 +41,8 @@ const Comment = ({
                             <div className="flex-grow-1 flex-shrink-1">
                                 <div className="mb-4">
                                     <div className="d-flex justify-content-between align-items-center">
-                                        <p className="mb-1">
-                                            {user && user.name}
+                                        <p className="mb-1 ">
+                                            {user && user.name}{" "}
                                             <span className="small">
                                                 - {displayDate(created)}
                                             </span>
@@ -65,12 +64,12 @@ const Comment = ({
         </div>
     );
 };
-
 Comment.propTypes = {
     content: PropTypes.string,
+    edited_at: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     created_at: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    onRemove: PropTypes.func,
     userId: PropTypes.string,
+    onRemove: PropTypes.func,
     _id: PropTypes.string
 };
 

@@ -24,14 +24,3 @@ const fetchAll = () =>
 export default {
     fetchAll
 };
-
-// const fetchAll = () =>
-//     new Promise((resolve) => {
-//         window.setTimeout(function () {
-//             resolve(professions);
-//         }, 2000);
-//     });
-
-// export default {
-//     fetchAll
-// };

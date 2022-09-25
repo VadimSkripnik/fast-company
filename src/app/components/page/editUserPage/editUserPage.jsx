@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import { useHistory, useParams } from "react-router-dom";
 import { validator } from "../../../utils/validator";
 import api from "../../../api";
 import TextField from "../../common/form/textField";
 import SelectField from "../../common/form/selectField";
-import RadioField from "../../common/form/radio.Field";
+import RadioField from "../../common/form/radioField";
 import MultiSelectField from "../../common/form/multiSelectField";
-import { useHistory } from "react-router-dom";
-import BackHistoryButton from "../../common/backHistoryButton";
+import BackHistoryButton from "../../common/backButton";
 
-const EditUserPage = ({ userId }) => {
+const EditUserPage = () => {
+    const { userId } = useParams();
     const history = useHistory();
     const [isLoading, setIsLoading] = useState(false);
     const [data, setData] = useState({
@@ -22,7 +22,6 @@ const EditUserPage = ({ userId }) => {
     const [professions, setProfession] = useState([]);
     const [qualities, setQualities] = useState([]);
     const [errors, setErrors] = useState({});
-
     const getProfessionById = (id) => {
         for (const prof of professions) {
             if (prof.value === id) {
@@ -30,7 +29,6 @@ const EditUserPage = ({ userId }) => {
             }
         }
     };
-
     const getQualities = (elements) => {
         const qualitiesArray = [];
         for (const elem of elements) {
@@ -58,6 +56,11 @@ const EditUserPage = ({ userId }) => {
                 qualities: getQualities(qualities)
             })
             .then((data) => history.push(`/users/${data._id}`));
+        console.log({
+            ...data,
+            profession: getProfessionById(profession),
+            qualities: getQualities(qualities)
+        });
     };
     const transformData = (data) => {
         return data.map((qual) => ({ label: qual.name, value: qual._id }));
@@ -185,10 +188,6 @@ const EditUserPage = ({ userId }) => {
             </div>
         </div>
     );
-};
-
-EditUserPage.propTypes = {
-    userId: PropTypes.string
 };
 
 export default EditUserPage;
