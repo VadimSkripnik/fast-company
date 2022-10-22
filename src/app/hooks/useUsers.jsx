@@ -22,7 +22,6 @@ const UserProvider = ({ children }) => {
             setError(null);
         }
     }, [error]);
-
     async function getUsers() {
         try {
             const { content } = await userService.get();
@@ -30,10 +29,8 @@ const UserProvider = ({ children }) => {
             setLoading(false);
         } catch (error) {
             errorCatcher(error);
-            console.log(error);
         }
     }
-
     function errorCatcher(error) {
         const { message } = error.response.data;
         setError(message);
